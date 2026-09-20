@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyAssist AI — Passenger Resolution Simulation</title>
+    <meta name="description" content="Customer-facing resolution agent simulation in monochrome minimalist design.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="brand-avatar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
+                    <circle cx="19" cy="5" r="1.5"/>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <h1 class="brand-title">SkyAssist AI</h1>
+                <span class="brand-subtitle">Always here to help</span>
+            </div>
+        </div>
+
+        <div class="header-controls">
+            <button id="clearChatBtn" class="pill-btn replay-btn" title="Reset Session">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                    <path d="M3 3v5h5"/>
+                </svg>
+                <span>Replay</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="workspace-container">
+        
+        <aside class="simulation-panel">
+            <div class="panel-inner">
+                
+                <div class="panel-headline">
+                    <div class="passenger-select-pill">
+                        <span class="pill-icon">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </span>
+                        <select id="customerSelector" class="passenger-dropdown" aria-label="Select Passenger">
+                            <option value="priya_nair">Priya Nair (Gold · SK-204 Cancelled)</option>
+                            <option value="arvind_kulkarni">Arvind Kulkarni (Silver · SK-118 Delayed 4h)</option>
+                            <option value="meher_kaur">Meher Kaur (Platinum · SK-305 Delayed 6h)</option>
+                        </select>
+                    </div>
+                    <span class="pnr-badge">PNR: <strong id="pnrText">SK4821X</strong></span>
+                </div>
+
+                <div class="card profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="customerAvatar">PN</div>
+                        <div class="profile-info">
+                            <div class="profile-name-row">
+                                <h2 class="profile-name" id="customerName">Priya Nair</h2>
+                                <span class="mono-badge" id="tierBadge"><span id="tierText">GOLD MEMBER</span></span>
+                            </div>
+                            <span class="profile-subtitle" id="flightCountText">6 completed flights</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-grid">
+                        <div class="profile-item">
+                            <span class="field-label">Email</span>
+                            <span class="field-value" id="emailText">priya.nair@example.com</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="field-label">Phone</span>
+                            <span class="field-value" id="phoneText">+91-98xxxxxxx1</span>
+                        </div>
+                        <div class="profile-item full-width" id="complaintRow">
+                            <span class="field-label">Service History</span>
+                            <span class="field-value text-dim" id="complaintText">1 prior complaint (delayed baggage, resolved with voucher)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card flight-ticket-card">
+                    <div class="ticket-header">
+                        <div class="ticket-flight">
+                            <span class="flight-lbl">DISRUPTED FLIGHT</span>
+                            <span class="flight-id" id="flightNumber">SK-204</span>
+                        </div>
+                        <div class="ticket-badge-box">
+                            <span class="status-mono-badge" id="flightStatusBadge">CANCELLED</span>
+                        </div>
+                    </div>
+
+                    <div class="route-display">
+                        <div class="route-col">
+                            <span class="city-code" id="originCode">DEL</span>
+                            <span class="city-title" id="originCity">Delhi</span>
+                            <span class="time-label">Scheduled: <strong id="scheduledDep">18:40</strong></span>
+                        </div>
+                        <div class="route-line-col">
+                            <span class="plane-sym">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                                </svg>
+                            </span>
+                            <span class="flight-reason-text" id="flightDuration">Operational Cancellation</span>
+                        </div>
+                        <div class="route-col align-right">
+                            <span class="city-code" id="destCode">GOA</span>
+                            <span class="city-title" id="destCity">Goa</span>
+                            <span class="time-label">Updated: <strong id="newDep">CANCELLED</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card flight-ticket-card" id="returnFlightBox">
+                    <div class="ticket-header">
+                        <div class="ticket-flight">
+                            <span class="flight-lbl">RETURN FLIGHT</span>
+                            <span class="flight-id" id="returnFlightNumber">SK-205</span>
+                        </div>
+                        <div class="ticket-badge-box">
+                            <span class="status-mono-badge" id="returnFlightStatus">CONFIRMED</span>
+                        </div>
+                    </div>
+
+                    <div class="route-display">
+                        <div class="route-col">
+                            <span class="city-code" id="returnOriginCode">GOA</span>
+                            <span class="city-title" id="returnOriginCity">Goa</span>
+                            <span class="time-label">Scheduled: <strong id="returnScheduledDep">16:20 (25 Sep)</strong></span>
+                        </div>
+                        <div class="route-line-col">
+                            <span class="plane-sym">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                                </svg>
+                            </span>
+                            <span class="flight-reason-text" id="returnFlightDuration">Confirmed On Schedule</span>
+                        </div>
+                        <div class="route-col align-right">
+                            <span class="city-code" id="returnDestCode">DEL</span>
+                            <span class="city-title" id="returnDestCity">Delhi</span>
+                            <span class="time-label">Status: <strong id="returnStatusVal">ON TIME</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+        <main class="chat-side-panel">
+            
+            <div class="escalation-banner" id="escalationBanner" style="display: none;">
+                <div class="escalation-banner-header">
+                    <div class="escalation-title-group">
+                        <div class="escalation-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <span class="escalation-title">Specialist Escalation Active</span>
+                    </div>
+                    <span class="escalation-pill-badge">SUPERVISOR ASSIGNED</span>
+                </div>
+                <div class="escalation-body">
+                    <p class="escalation-text" id="escalationReasonText">A senior duty supervisor is reviewing your booking to assist you directly.</p>
+                </div>
+            </div>
+
+            <div class="chat-stream" id="chatStream">
+            </div>
+
+            <div class="action-dock" id="actionDock">
+                <div class="action-dock-header" id="actionDockLabel" style="display: none;">
+                    <span>Authorized Remedies Available:</span>
+                </div>
+                <div class="action-buttons-group" id="actionButtonsGroup">
+                </div>
+            </div>
+
+            <div class="quick-chips-container">
+                <div class="quick-chips" id="quickChips">
+                </div>
+            </div>
+
+            <div class="input-container">
+                <form id="chatForm" class="chat-form">
+                    <input 
+                        type="text" 
+                        id="chatInput" 
+                        class="chat-input" 
+                        placeholder="Send a message..." 
+                        autocomplete="off"
+                    />
+                    <button type="submit" id="sendBtn" class="send-btn" title="Send message" aria-label="Send message">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="19" x2="12" y2="5"></line>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </main>
+
+    </div>
+
+    <div id="telemetryBackingStore" style="display: none;" aria-hidden="true">
+        <span id="engineStatus">Active</span>
+        <span id="llmStatusBadge"></span>
+        <span id="llmStatusText">LLM Connected</span>
+        <span id="telemetrySessionId"></span>
+        <span id="telemetryIntent"></span>
+        <span id="telemetryEngineStatus"></span>
+        <div id="appliedPoliciesList"></div>
+        <div id="activityFeed"></div>
+        <span id="liveResolutionState"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
